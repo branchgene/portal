@@ -1,0 +1,159 @@
+swagger: '2.0'
+info:
+  version: '1.0.0'
+  title: Portal API
+host: localhost:3000
+basePath: /api/v1
+schemes:
+  # NOTE: remove http to make production-grade
+  - http
+  - https
+consumes:
+  - application/json
+produces:
+  - application/json
+#securityDefinitions:
+#  basicAuth:
+#    type: basic
+#security:
+#  - basicAuth: []
+paths:
+  '/patient/{name}/history':
+    x-swagger-router-controller: patients
+    get:
+      description: Retrieve a patient history
+      operationId: getHistory
+      parameters:
+        - $ref: '#/parameters/pathPatientName'
+        - $ref: '#/parameters/queryRequester'
+      responses:
+        '200':
+          description: Successful request
+          schema:
+            $ref: '#/definitions/OrganizationList'
+        '401':
+          $ref: '#/responses/Unauthorized'
+        '403':
+          $ref: '#/responses/Forbidden'
+        default:
+          $ref: '#/responses/GeneralError'
+  /swagger:
+    x-swagger-pipe: swagger_raw
+parameters:
+  pathPatientName:
+    name: patentName
+    in: path
+    description: The name of the patient
+    type: string
+  queryRequester:
+    name: queryRequester
+    in: query
+    description: Who requested the patient history
+    type: string
+responses:
+  Forbidden:
+    description: Forbidden
+    schema:
+      $ref: '#/definitions/ErrorResponse'
+  GeneralError:
+    description: Error
+    schema:
+      $ref: '#/definitions/ErrorResponse'
+  Unauthorized:
+    description: Unauthorized
+    schema:
+      $ref: '#/definitions/ErrorResponse'
+definitions:
+  Organization:
+    required: [id, name]
+    properties:
+      name:
+        description: Human friendly name of the organization
+        type: string
+      active:
+        description: Whether or not the Organization is active
+        type: boolean
+      id:
+        description: Unique identifier for the organization
+        type: string
+      createdAt:
+        description: When the Organization was created
+        type: string
+        format: date-time
+      updatedAt:
+        description: When the Organization was last updated
+        type: string
+        format: date-time
+  OrganizationList:
+    properties:
+      items:
+        type: array
+        items:
+          $ref: '#/definitions/Organization'
+      pagination:
+          $ref: '#/definitions/Pagination'
+  Pagination:
+    properties:
+      pageSize:
+        description: Size of the page
+        type: integer
+      pageCount:
+        description: How many pages are in the set
+        type: integer
+      page:
+        description: Which page in the response set this set corresponds to
+        type: integer
+  User:
+    required: [id, name]
+    properties:
+      id:
+        description: Unique ID of the User
+        type: string
+      name:
+        description: Name of the User
+        type: string
+      # TODO: Facebook / Google / etc. are going to link us with some form
+      # of auth type. Ideally, we'd support multiple auth metchansisms
+      # that allow us to match against a single User.
+      # That means storing this in another table, looking it up, then
+      # retrieving our User based on the matches.
+      #
+      # We need to look at what Facebook / Google auth present back to us
+      # so that we know what all we need to store in order ot match it
+      # up against this user
+      active:
+        description: Whether or not the User is active in the system
+        type: boolean
+      createdAt:
+        description: When the User was created
+        type: string
+        format: date-time
+      updatedAt:
+        description: When the User was last updated
+        type: string
+        format: date-time
+  UserCreate:
+    required: [name]
+    properties:
+      name:
+        description: Name of the User
+        type: string
+  UserList:
+    properties:
+      items:
+        type: array
+        items:
+          $ref: '#/definitions/User'
+      pagination:
+          $ref: '#/definitions/Pagination'
+#  UserOrgRoles:
+#    properties:
+#      organizationId: The organization ID this role is for
+#      userId: The user ID this role is for
+#      role: The role itself??
+  ErrorResponse:
+    required:
+      - message
+    properties:
+      message:
+        type: string

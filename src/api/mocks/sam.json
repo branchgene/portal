@@ -1,0 +1,154 @@
+{
+  "name": "Sarah",
+  "dob": "1974-11-01",
+  "dod": "",
+  "gender": "female",
+  "family": {
+    "father": "John",
+    "mother": "Sherry",
+    "children": [
+      "Sam"
+    ]
+  },
+  "history": {
+    "Caroline": {
+      "dob": "1929-06-01",
+      "dod": "1980-01-01",
+      "gender": "female",
+      "family": {
+        "children": [ "Sherry", "Sally" ]
+      },
+      "diseases": [
+        {
+          "name": "Heart Attack",
+          "onsetAge": 51
+        }
+      ]
+    },
+    "Charles": {
+      "dob": "1968-05-10",
+      "dod": "",
+      "gender": "male",
+      "family": {
+        "father": "John",
+        "mother": "Sherry"
+      },
+      "diseases": [
+        {
+          "name": "Diabetes: Type 1",
+          "onsetAge": 44
+        }
+      ]
+    },
+    "Edna": {
+      "dob": "1929-04-01",
+      "dod": "2007-05-10",
+      "gender": "female",
+      "family": {
+        "children": [ "John" ]
+      },
+      "diseases": [
+        {
+          "name": "Cancer: Stomach",
+          "onsetAge": 77
+        }
+      ]
+    },
+    "Fred": {
+      "dob": "1930-05-10",
+      "dod": "",
+      "gender": "male",
+      "family": {
+        "children": [ "Sherry", "Sally" ]
+      },
+      "diseases": [
+        {
+          "name": "Cancer: Thyroid",
+          "onsetAge": 60
+        }
+      ]
+    },
+    "Gerald": {
+      "dob": "1939-08-20",
+      "dod": "2010-09-02",
+      "gender": "male",
+      "family": {
+        "children": [ "John" ]
+      },
+      "diseases": [
+        {
+          "name": "Clotting Disorder: Deep Vein Throm",
+          "onsetAge": 71
+        }
+      ]
+    },
+    "George": {
+      "dob": "1970-10-10",
+      "dod": "",
+      "gender": "male",
+      "family": {
+        "mother": "Sally"
+      },
+      "diseases": []
+    },
+    "John": {
+      "dob": "1948-02-20",
+      "dod": "2006-02-04",
+      "gender": "male",
+      "family": {
+        "father": "Gerald",
+        "mother": "Edna",
+        "children": [ "Sarah", "Charles" ]
+      },
+      "diseases": [
+        {
+          "name": "Cancer: Bone Cancer",
+          "onsetAge": 7
+        }
+      ]
+    },
+    "Sherry": {
+      "dob": "1948-05-20",
+      "dod": "",
+      "gender": "female",
+      "family": {
+        "father": "Fred",
+        "mother": "Caroline",
+        "children": [ "Sarah", "Charles" ]
+      },
+      "diseases": [
+        {
+          "name": "Hypertension",
+          "onsetAge": 70
+        }
+      ]
+    },
+    "Sally": {
+      "dob": "1949-08-20",
+      "dod": "",
+      "gender": "female",
+      "family": {
+        "father": "Fred",
+        "mother": "Caroline",
+        "children": [ "George" ]
+      }
+    },
+    "Sam": {
+      "dob": "2000-11-30",
+      "dod": "2007-12-01",
+      "gender": "male",
+      "diseases": [
+        {
+          "name": "Cancer: Leukemia",
+          "onsetAge": 4
+        }
+      ]
+    }
+  },
+  "diseases": [
+    {
+      "name": "Diabetes: Type 2",
+      "onsetAge": 3
+    }
+  ]
+}
