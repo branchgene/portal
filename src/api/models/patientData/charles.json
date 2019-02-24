@@ -132,6 +132,24 @@
         ]
       }
     },
+    "Sarah": {
+      "name": "Sarah",
+      "deathAge": null,
+      "gender": "female",
+      "family": {
+        "father": "John",
+        "mother": "Sherry",
+        "siblings": [
+          "Charles"
+        ]
+      },
+      "diseases": [
+        {
+          "name": "Diabetes: Type 1",
+          "onsetAge": 3
+        }
+      ]
+    },
     "Sam": {
       "name": "Sam",
       "deathAge": 7,
