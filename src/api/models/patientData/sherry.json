@@ -1,19 +1,21 @@
 {
   "name": "Sarah",
-  "dob": "1974-11-01",
-  "dod": "",
+  "deathAge": null,
   "gender": "female",
   "family": {
     "father": "John",
     "mother": "Sherry",
     "children": [
       "Sam"
+    ],
+    "siblings": [
+      "Charles"
     ]
   },
   "history": {
     "Caroline": {
-      "dob": "1929-06-01",
-      "dod": "1980-01-01",
+      "name": "Caroline",
+      "deathAge": 51,
       "gender": "female",
       "family": {
         "children": [ "Sherry", "Sally" ]
@@ -26,12 +28,15 @@
       ]
     },
     "Charles": {
-      "dob": "1968-05-10",
-      "dod": "",
+      "name": "Charles",
+      "deathAge": null,
       "gender": "male",
       "family": {
         "father": "John",
-        "mother": "Sherry"
+        "mother": "Sherry",
+        "siblings": [
+          "Sarah"
+        ]
       },
       "diseases": [
         {
@@ -41,8 +46,8 @@
       ]
     },
     "Edna": {
-      "dob": "1929-04-01",
-      "dod": "2007-05-10",
+      "name": "Edna",
+      "deathAge": 78,
       "gender": "female",
       "family": {
         "children": [ "John" ]
@@ -55,8 +60,8 @@
       ]
     },
     "Fred": {
-      "dob": "1930-05-10",
-      "dod": "",
+      "name": "Fred",
+      "deathAge": null,
       "gender": "male",
       "family": {
         "children": [ "Sherry", "Sally" ]
@@ -69,8 +74,8 @@
       ]
     },
     "Gerald": {
-      "dob": "1939-08-20",
-      "dod": "2010-09-02",
+      "name": "Gerald",
+      "deathAge": 71,
       "gender": "male",
       "family": {
         "children": [ "John" ]
@@ -83,8 +88,8 @@
       ]
     },
     "George": {
-      "dob": "1970-10-10",
-      "dod": "",
+      "name": "George",
+      "deathAge": null,
       "gender": "male",
       "family": {
         "mother": "Sally"
@@ -92,8 +97,8 @@
       "diseases": []
     },
     "John": {
-      "dob": "1948-02-20",
-      "dod": "2006-02-04",
+      "name": "John",
+      "deathAge": 32,
       "gender": "male",
       "family": {
         "father": "Gerald",
@@ -108,13 +113,16 @@
       ]
     },
     "Sherry": {
-      "dob": "1948-05-20",
-      "dod": "",
+      "name": "Sherry",
+      "deathAge": null,
       "gender": "female",
       "family": {
         "father": "Fred",
         "mother": "Caroline",
-        "children": [ "Sarah", "Charles" ]
+        "children": [ "Sarah", "Charles" ],
+        "siblings": [
+          "Sally"
+        ]
       },
       "diseases": [
         {
@@ -124,19 +132,25 @@
       ]
     },
     "Sally": {
-      "dob": "1949-08-20",
-      "dod": "",
+      "name": "Sally",
+      "deathAge": null,
       "gender": "female",
       "family": {
         "father": "Fred",
         "mother": "Caroline",
-        "children": [ "George" ]
+        "children": [ "George" ],
+        "siblings": [
+          "Sherry"
+        ]
       }
     },
     "Sam": {
-      "dob": "2000-11-30",
-      "dod": "2007-12-01",
+      "name": "Sam",
+      "deathAge": 7,
       "gender": "male",
+      "family": {
+        "mother": "Sarah"
+      },
       "diseases": [
         {
           "name": "Cancer: Leukemia",

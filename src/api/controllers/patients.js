@@ -1,19 +1,19 @@
 
-const sarah = require('../mocks/sarah.json');
-
+const Patient = require('../models/Patient');
 
 function getHistory(req, res, next) {
-
   const patientName = req.swagger.params.patientName.raw;
-  const requester = req.swagger.params.queryRequester.raw || 'None';
+  const requester = req.swagger.params.requester.raw || 'None';
 
-  if (patientName !== 'Sarah') {
-    next(new Error('foo'));
+  console.log(req.swagger.params.queryRequester);
+
+  const patient = Patient.get(patientName, requester);
+  if (!patient) {
+    next(new Error({ statusCode: 404, message: 'Not Found'}));
     return;
   }
 
-  res.send(sarah);
-
+  res.send(patient);
 }
 
 function enableDoctor(req, res, next) {

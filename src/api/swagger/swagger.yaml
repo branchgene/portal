@@ -86,7 +86,7 @@ parameters:
     type: string
     required: true
   queryRequester:
-    name: queryRequester
+    name: requester
     in: query
     description: Who requested the patient history
     type: string

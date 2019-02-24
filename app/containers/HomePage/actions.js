@@ -47,6 +47,7 @@ export function getPatientHistoryError(error) {
 export function getPatientHistory(patientName, requester) {
   return async (dispatch) => {
     try {
+      console.log({ patientName, requester }, 'Getting Patient History');
       const { data } = await http().get(`/api/v1/patients/${patientName}/history?requester=${requester}`);
       dispatch(getPatientHistorySuccess(patientName, requester, data));
       dispatch(push('/patientHistory'));

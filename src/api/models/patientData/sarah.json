@@ -1,0 +1,168 @@
+{
+  "name": "Sarah",
+  "deathAge": null,
+  "gender": "female",
+  "family": {
+    "father": "John",
+    "mother": "Sherry",
+    "children": [
+      "Sam"
+    ],
+    "siblings": [
+      "Charles"
+    ]
+  },
+  "history": {
+    "Caroline": {
+      "name": "Caroline",
+      "deathAge": 51,
+      "gender": "female",
+      "family": {
+        "children": [ "Sherry", "Sally" ]
+      },
+      "diseases": [
+        {
+          "name": "Heart Attack",
+          "onsetAge": 51
+        }
+      ]
+    },
+    "Charles": {
+      "name": "Charles",
+      "deathAge": null,
+      "gender": "male",
+      "family": {
+        "father": "John",
+        "mother": "Sherry",
+        "siblings": [
+          "Sarah"
+        ]
+      },
+      "diseases": [
+        {
+          "name": "Diabetes: Type 1",
+          "onsetAge": 44
+        }
+      ]
+    },
+    "Edna": {
+      "name": "Edna",
+      "deathAge": 78,
+      "gender": "female",
+      "family": {
+        "children": [ "John" ]
+      },
+      "diseases": [
+        {
+          "name": "Cancer: Stomach",
+          "onsetAge": 77
+        }
+      ]
+    },
+    "Fred": {
+      "name": "Fred",
+      "deathAge": null,
+      "gender": "male",
+      "family": {
+        "children": [ "Sherry", "Sally" ]
+      },
+      "diseases": [
+        {
+          "name": "Cancer: Thyroid",
+          "onsetAge": 60
+        }
+      ]
+    },
+    "Gerald": {
+      "name": "Gerald",
+      "deathAge": 71,
+      "gender": "male",
+      "family": {
+        "children": [ "John" ]
+      },
+      "diseases": [
+        {
+          "name": "Clotting Disorder: Deep Vein Throm",
+          "onsetAge": 71
+        }
+      ]
+    },
+    "George": {
+      "name": "George",
+      "deathAge": null,
+      "gender": "male",
+      "family": {
+        "mother": "Sally"
+      },
+      "diseases": []
+    },
+    "John": {
+      "name": "John",
+      "deathAge": 32,
+      "gender": "male",
+      "family": {
+        "father": "Gerald",
+        "mother": "Edna",
+        "children": [ "Sarah", "Charles" ]
+      },
+      "diseases": [
+        {
+          "name": "Cancer: Bone Cancer",
+          "onsetAge": 7
+        }
+      ]
+    },
+    "Sherry": {
+      "name": "Sherry",
+      "deathAge": null,
+      "gender": "female",
+      "family": {
+        "father": "Fred",
+        "mother": "Caroline",
+        "children": [ "Sarah", "Charles" ],
+        "siblings": [
+          "Sally"
+        ]
+      },
+      "diseases": [
+        {
+          "name": "Hypertension",
+          "onsetAge": 70
+        }
+      ]
+    },
+    "Sally": {
+      "name": "Sally",
+      "deathAge": null,
+      "gender": "female",
+      "family": {
+        "father": "Fred",
+        "mother": "Caroline",
+        "children": [ "George" ],
+        "siblings": [
+          "Sherry"
+        ]
+      }
+    },
+    "Sam": {
+      "name": "Sam",
+      "deathAge": 7,
+      "gender": "male",
+      "family": {
+        "mother": "Sarah"
+      },
+      "diseases": [
+        {
+          "name": "Cancer: Leukemia",
+          "onsetAge": 4
+        }
+      ]
+    }
+  },
+  "diseases": [
+    {
+      "name": "Diabetes: Type 2",
+      "onsetAge": 3
+    }
+  ]
+}

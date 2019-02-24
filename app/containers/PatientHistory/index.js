@@ -241,7 +241,7 @@ class PatientHistory extends React.Component { // eslint-disable-line react/pref
           <table>
           <tbody>
           <tr>
-            <td colspan="2" align="center">{`${selectedNodeData.name}${deceased}`}</td>
+            <td colSpan="2" align="center">{`${selectedNodeData.name}${deceased}`}</td>
           </tr>
           <tr>
             <td>Gender:</td>
