@@ -52,8 +52,8 @@ class HomePage extends React.Component { // eslint-disable-line react/prefer-sta
     return (
       <article>
         <Helmet>
-          <title>#HashGene</title>
-          <meta name="description" content="@HashGene" />
+          <title>Branch</title>
+          <meta name="description" content="@Branch" />
         </Helmet>
         <div className="home-page">
           <div>

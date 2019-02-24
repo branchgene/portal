@@ -6,7 +6,7 @@ import './style.scss';
 class Header extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
     return (<div className="header">
-        <h1>#HashGene</h1>
+        <h1>Branch</h1>
       </div>);
     return (
       <div className="header">
