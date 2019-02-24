@@ -330,7 +330,9 @@ class Patient {
             });
           }));
       allConsents.forEach((consent) => {
-        patient.history[consent.name].hasConsent = consent.hasConsent;
+        if (patient.history[consent.name]) {
+          patient.history[consent.name].hasConsent = consent.hasConsent;
+        }
       });
 
       return anonymize(mergePatients(patient, allPatientData));
