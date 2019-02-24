@@ -118,6 +118,19 @@ definitions:
         type: string
       ageAtContracted:
         type: integer
+      minAgeAtContracted:
+        type: integer
+      maxAgeAtContracted:
+        type: integer
+      confidenceScore:
+        type: integer
+  PatientRelationship:
+    required: [id]
+    properties:
+      id:
+        type: string
+      confidenceScore:
+        type: integer
   Patient:
     required: [id]
     properties:
@@ -129,6 +142,10 @@ definitions:
         type: boolean
       ageAtDeath:
         type: integer
+      minDeathAge:
+        type: integer
+      maxDeathAge:
+        type: integer
       disesases:
         type: array
         items:
@@ -138,13 +155,21 @@ definitions:
         items:
           $ref: '#/definitions/Doctor'
       father:
-        $ref: '#/definitions/Patient'
+        type: array
+        items:
+          $ref: '#/definitions/PatientRelationship'
       mother:
-        $ref: '#/definitions/Patient'
+        type: array
+        items:
+          $ref: '#/definitions/PatientRelationship'
       children:
         type: array
         items:
-          $ref: '#/definitions/Patient'
+          $ref: '#/definitions/PatientRelationship'
+      siblings:
+        type: array
+        items:
+          $ref: '#/definitions/PatientRelationship'
   ErrorResponse:
     required:
       - message

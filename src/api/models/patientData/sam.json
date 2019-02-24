@@ -1,28 +1,30 @@
 {
-  "name": "Sarah",
-  "deathAge": null,
-  "gender": "female",
+  "name": "Sam",
+  "deathAge": 7,
+  "gender": "male",
   "family": {
-    "father": "John",
-    "mother": "Sherry",
-    "children": [
-      "Sam"
-    ],
-    "siblings": [
-      "Charles"
-    ]
+    "father": "Charles",
+    "mother": "Jennifer",
+    "children": [],
+    "siblings": []
   },
+  "diseases": [
+    {
+      "name": "Cancer: Leukemia",
+      "onsetAge": 5
+    }
+  ],
   "history": {
     "Caroline": {
       "name": "Caroline",
       "deathAge": 51,
       "gender": "female",
       "family": {
-        "children": [ "Sherry", "Sally" ]
+        "children": [ "Sherry" ]
       },
       "diseases": [
         {
-          "name": "Heart Attack",
+          "name": "Heart Disease: Aortic Dissection",
           "onsetAge": 51
         }
       ]
@@ -36,18 +38,19 @@
         "mother": "Sherry",
         "siblings": [
           "Sarah"
-        ]
+        ],
+        "children": [ "Sam" ]
       },
       "diseases": [
         {
-          "name": "Diabetes: Type 1",
+          "name": "Diabetes: Type 2",
           "onsetAge": 44
         }
       ]
     },
     "Edna": {
       "name": "Edna",
-      "deathAge": 78,
+      "deathAge": 79,
       "gender": "female",
       "family": {
         "children": [ "John" ]
@@ -64,11 +67,11 @@
       "deathAge": null,
       "gender": "male",
       "family": {
-        "children": [ "Sherry", "Sally" ]
+        "children": [ "Sherry" ]
       },
       "diseases": [
         {
-          "name": "Cancer: Thyroid",
+          "name": "Cancer: Neck",
           "onsetAge": 60
         }
       ]
@@ -82,7 +85,7 @@
       },
       "diseases": [
         {
-          "name": "Clotting Disorder: Deep Vein Throm",
+          "name": "Stroke",
           "onsetAge": 71
         }
       ]
@@ -108,7 +111,29 @@
       "diseases": [
         {
           "name": "Cancer: Bone Cancer",
-          "onsetAge": 7
+          "onsetAge": 58
+        }
+      ]
+    },
+    "Jennifer": {
+      "name": "Jennifer",
+      "deathAge": null,
+      "gender": "female",
+      "family": {
+        "children": [ "Sam" ]
+      }
+    },
+    "Sarah": {
+      "name": "Sarah",
+      "deathAge": null,
+      "gender": "female",
+      "family": {
+        "siblings": [ "Charles" ]
+      },
+      "diseases": [
+        {
+          "name": "Diabetes: Type 1",
+          "onsetAge": 3
         }
       ]
     },
@@ -117,12 +142,9 @@
       "deathAge": null,
       "gender": "female",
       "family": {
-        "father": "Fred",
-        "mother": "Caroline",
-        "children": [ "Sarah", "Charles" ],
-        "siblings": [
-          "Sally"
-        ]
+        "father": "Gerald",
+        "mother": "Edna",
+        "children": [ "Jennifer" ]
       },
       "diseases": [
         {
@@ -143,26 +165,6 @@
           "Sherry"
         ]
       }
-    },
-    "Sam": {
-      "name": "Sam",
-      "deathAge": 7,
-      "gender": "male",
-      "family": {
-        "mother": "Sarah"
-      },
-      "diseases": [
-        {
-          "name": "Cancer: Leukemia",
-          "onsetAge": 4
-        }
-      ]
     }
-  },
-  "diseases": [
-    {
-      "name": "Diabetes: Type 2",
-      "onsetAge": 3
-    }
-  ]
+  }
 }

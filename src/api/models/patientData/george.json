@@ -1,17 +1,13 @@
 {
-  "name": "Sarah",
+  "name": "George",
   "deathAge": null,
-  "gender": "female",
+  "gender": "male",
   "family": {
-    "father": "John",
-    "mother": "Sherry",
-    "children": [
-      "Sam"
-    ],
-    "siblings": [
-      "Charles"
-    ]
+    "mother": "Sally",
+    "children": [],
+    "siblings": []
   },
+  "diseases": [],
   "history": {
     "Caroline": {
       "name": "Caroline",
@@ -22,7 +18,7 @@
       },
       "diseases": [
         {
-          "name": "Heart Attack",
+          "name": "Heart Disease: Aortic Dissection",
           "onsetAge": 51
         }
       ]
@@ -45,20 +41,6 @@
         }
       ]
     },
-    "Edna": {
-      "name": "Edna",
-      "deathAge": 78,
-      "gender": "female",
-      "family": {
-        "children": [ "John" ]
-      },
-      "diseases": [
-        {
-          "name": "Cancer: Stomach",
-          "onsetAge": 77
-        }
-      ]
-    },
     "Fred": {
       "name": "Fred",
       "deathAge": null,
@@ -69,46 +51,21 @@
       "diseases": [
         {
           "name": "Cancer: Thyroid",
-          "onsetAge": 60
+          "onsetAge": 59
         }
       ]
-    },
-    "Gerald": {
-      "name": "Gerald",
-      "deathAge": 71,
-      "gender": "male",
-      "family": {
-        "children": [ "John" ]
-      },
-      "diseases": [
-        {
-          "name": "Clotting Disorder: Deep Vein Throm",
-          "onsetAge": 71
-        }
-      ]
-    },
-    "George": {
-      "name": "George",
-      "deathAge": null,
-      "gender": "male",
-      "family": {
-        "mother": "Sally"
-      },
-      "diseases": []
     },
     "John": {
       "name": "John",
       "deathAge": 32,
       "gender": "male",
       "family": {
-        "father": "Gerald",
-        "mother": "Edna",
         "children": [ "Sarah", "Charles" ]
       },
       "diseases": [
         {
           "name": "Cancer: Bone Cancer",
-          "onsetAge": 7
+          "onsetAge": 58
         }
       ]
     },
@@ -119,7 +76,10 @@
       "family": {
         "father": "Fred",
         "mother": "Caroline",
-        "children": [ "Sarah", "Charles" ],
+        "children": [
+          "Charles",
+          "Sarah"
+        ],
         "siblings": [
           "Sally"
         ]
@@ -143,26 +103,6 @@
           "Sherry"
         ]
       }
-    },
-    "Sam": {
-      "name": "Sam",
-      "deathAge": 7,
-      "gender": "male",
-      "family": {
-        "mother": "Sarah"
-      },
-      "diseases": [
-        {
-          "name": "Cancer: Leukemia",
-          "onsetAge": 4
-        }
-      ]
     }
-  },
-  "diseases": [
-    {
-      "name": "Diabetes: Type 2",
-      "onsetAge": 3
-    }
-  ]
+  }
 }

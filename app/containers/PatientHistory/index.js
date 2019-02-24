@@ -17,7 +17,14 @@ function getColor(patientData) {
   return '#7DCEA0';
 }
 
-function transformData(patientData) {
+function getConfidenceLabel(prefix, confidenceNode, showConfidences) {
+  if (!showConfidences) {
+    return prefix;
+  }
+  return `${prefix} (%${(confidenceNode.confidenceScore / 6 * 100).toFixed(2)})`;
+}
+
+function transformData(patientData, showConfidences = false) {
   const { history } = patientData;
 
   const nodes = [{
@@ -30,27 +37,31 @@ function transformData(patientData) {
 
   if (patientData.family) {
     if (patientData.family.father) {
-      edges.push({
-        from: `${patientData.id}`,
-        to: `${patientData.family.father}`,
-        label: 'father',
-        smooth: true,
+      patientData.family.father.forEach((father) => {
+        edges.push({
+          from: `${patientData.id}`,
+          to: `${father.id}`,
+          label: getConfidenceLabel('father', father, showConfidences),
+          smooth: true,
+        });
       });
     }
     if (patientData.family.mother) {
-      edges.push({
-        from: `${patientData.id}`,
-        to: `${patientData.family.mother}`,
-        label: 'mother',
-        smooth: true,
+      patientData.family.mother.forEach((mother) => {
+        edges.push({
+          from: `${patientData.id}`,
+          to: `${mother.id}`,
+          label: getConfidenceLabel('mother', mother, showConfidences),
+          smooth: true,
+        });
       });
     }
     if (patientData.family.children) {
       patientData.family.children.forEach((child) => {
         edges.push({
           from: `${patientData.id}`,
-          to: `${child}`,
-          label: 'child',
+          to: `${child.id}`,
+          label: getConfidenceLabel('child', child, showConfidences),
           smooth: true,
         });
       });
@@ -59,8 +70,8 @@ function transformData(patientData) {
       patientData.family.siblings.forEach((sibling) => {
         edges.push({
           from: `${patientData.id}`,
-          to: `${sibling}`,
-          label: 'sibling',
+          to: `${sibling.id}`,
+          label: getConfidenceLabel('sibling', sibling, showConfidences),
           smooth: true,
         });
       });
@@ -79,27 +90,31 @@ function transformData(patientData) {
 
       if (person.family) {
         if (person.family.father) {
-          edges.push({
-            from: `${person.id}`,
-            to: `${person.family.father}`,
-            label: 'father',
-            smooth: true,
+          person.family.father.forEach((father) => {
+            edges.push({
+              from: `${person.id}`,
+              to: `${father.id}`,
+              label: getConfidenceLabel('father', father, showConfidences),
+              smooth: true,
+            });
           });
         }
         if (person.family.mother) {
-          edges.push({
-            from: `${person.id}`,
-            to: `${person.family.mother}`,
-            label: 'mother',
-            smooth: true,
+          person.family.mother.forEach((mother) => {
+            edges.push({
+              from: `${person.id}`,
+              to: `${mother.id}`,
+              label: getConfidenceLabel('mother', mother, showConfidences),
+              smooth: true,
+            });
           });
         }
         if (person.family.children) {
           person.family.children.forEach((child) => {
             edges.push({
               from: `${person.id}`,
-              to: `${child}`,
-              label: 'child',
+              to: `${child.id}`,
+              label: getConfidenceLabel('child', child, showConfidences),
               smooth: true,
             });
           });
@@ -108,8 +123,8 @@ function transformData(patientData) {
           person.family.siblings.forEach((sibling) => {
             edges.push({
               from: `${person.id}`,
-              to: `${sibling}`,
-              label: 'sibling',
+              to: `${sibling.id}`,
+              label: getConfidenceLabel('sibling', sibling, showConfidences),
               smooth: true,
             });
           });
@@ -192,8 +207,6 @@ class PatientHistory extends React.Component { // eslint-disable-line react/pref
     } = this.props;
     const selectedNode = this.state.selectedNode;
 
-    console.log(selectedNode);
-
     if (!patientHistory || !patientHistory.patientData) {
       return (
         <article>
@@ -209,7 +222,8 @@ class PatientHistory extends React.Component { // eslint-disable-line react/pref
     }
 
     let doctors;
-    if (patientHistory.requester === historyData.name) {
+    const isDoctor = patientHistory.requester !== historyData.name;
+    if (!isDoctor) {
       doctors = (
         <section>
           <h3>Doctors</h3>
@@ -247,19 +261,27 @@ class PatientHistory extends React.Component { // eslint-disable-line react/pref
             <td>Gender:</td>
             <td>{`${selectedNodeData.gender}`}</td>
           </tr>
-          {selectedNodeData.diseases && selectedNodeData.diseases.map((disease) => (
-            <tr key={`${disease.name}`}>
-              <td>{`${disease.name}`}</td>
-              <td>{`Onset: ${disease.onsetAge}`}</td>
-            </tr>
-          ))}
+          {selectedNodeData.diseases && selectedNodeData.diseases.map((disease) => {
+            let onsetAge;
+            if (disease.minOnsetAge) {
+              onsetAge = `Onset: ${disease.minOnsetAge} - ${disease.maxOnsetAge}`;
+            } else {
+              onsetAge = `Onset: ${disease.onsetAge}`;
+            }
+            return (
+              <tr key={`${disease.name}`}>
+                <td>{`${getConfidenceLabel(disease.name, disease, isDoctor)}`}</td>
+                <td>{`${onsetAge}`}</td>
+              </tr>
+            );
+          })}
           </tbody>
           </table>
         </div>
       );
     }
 
-    const graph = transformData(historyData);
+    const graph = transformData(historyData, isDoctor);
     const graphOptions = {
       layout: {
         hierarchical: false,
@@ -288,7 +310,7 @@ class PatientHistory extends React.Component { // eslint-disable-line react/pref
           <div>
             <h3>My History</h3>
             <div style={{ width: "100%" }}>
-              <Graph graph={graph} options={graphOptions} events={graphEvents} style={{ width: "1024px", height: "1024px" }} />
+              <Graph graph={graph} options={graphOptions} events={graphEvents} style={{ width: "768px", height: "512px" }} />
             </div>
           </div>
         </div>

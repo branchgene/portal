@@ -1,7 +1,7 @@
 {
-  "name": "Sarah",
+  "name": "Charles",
   "deathAge": null,
-  "gender": "female",
+  "gender": "male",
   "family": {
     "father": "John",
     "mother": "Sherry",
@@ -9,9 +9,15 @@
       "Sam"
     ],
     "siblings": [
-      "Charles"
+      "Sarah"
     ]
   },
+  "diseases": [
+    {
+      "name": "Diabetes: Type 2",
+      "onsetAge": 44
+    }
+  ],
   "history": {
     "Caroline": {
       "name": "Caroline",
@@ -22,26 +28,8 @@
       },
       "diseases": [
         {
-          "name": "Heart Attack",
+          "name": "Heart Disease: Aortic Dissection",
           "onsetAge": 51
-        }
-      ]
-    },
-    "Charles": {
-      "name": "Charles",
-      "deathAge": null,
-      "gender": "male",
-      "family": {
-        "father": "John",
-        "mother": "Sherry",
-        "siblings": [
-          "Sarah"
-        ]
-      },
-      "diseases": [
-        {
-          "name": "Diabetes: Type 1",
-          "onsetAge": 44
         }
       ]
     },
@@ -108,7 +96,7 @@
       "diseases": [
         {
           "name": "Cancer: Bone Cancer",
-          "onsetAge": 7
+          "onsetAge": 58
         }
       ]
     },
@@ -127,7 +115,7 @@
       "diseases": [
         {
           "name": "Hypertension",
-          "onsetAge": 70
+          "onsetAge": 59
         }
       ]
     },
@@ -149,20 +137,14 @@
       "deathAge": 7,
       "gender": "male",
       "family": {
-        "mother": "Sarah"
+        "father": "Charles"
       },
       "diseases": [
         {
           "name": "Cancer: Leukemia",
-          "onsetAge": 4
+          "onsetAge": 5
         }
       ]
     }
-  },
-  "diseases": [
-    {
-      "name": "Diabetes: Type 2",
-      "onsetAge": 3
-    }
-  ]
+  }
 }
