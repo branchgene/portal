@@ -52,7 +52,7 @@ class HomePage extends React.Component { // eslint-disable-line react/prefer-sta
     return (
       <article>
         <Helmet>
-          <title>Branch</title>
+          <title>#Branch</title>
           <meta name="description" content="@Branch" />
         </Helmet>
         <div className="home-page">

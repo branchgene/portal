@@ -20,10 +20,10 @@ import './style.scss';
 const App = () => (
   <div className="app-wrapper">
     <Helmet
-      titleTemplate="%s - Branch"
-      defaultTitle="#HashGene"
+      titleTemplate="%s"
+      defaultTitle="#Branch"
     >
-      <meta name="description" content="HashGene: Branch Portal" />
+      <meta name="description" content="HashGene: #Branch Portal" />
     </Helmet>
     <Header />
     <Switch>
