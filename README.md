@@ -1,6 +1,6 @@
-# BranchGene Portal
+# Branch
 
-A portal application for the BranchGene application.
+Branch: A portal application and REST API built on top of Ethereum blockchain for managing patient family history and patient/doctor consent and authorization.
 
 Created as part of the Hudson Alpha Tech Challenge 2019.
 

@@ -21,7 +21,7 @@ const App = () => (
   <div className="app-wrapper">
     <Helmet
       titleTemplate="%s - Branch"
-      defaultTitle="Branch"
+      defaultTitle="#HashGene"
     >
       <meta name="description" content="HashGene: Branch Portal" />
     </Helmet>
