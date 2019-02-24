@@ -21,6 +21,9 @@ function anonymize(_patientData) {
   const patientData = _.cloneDeep(_patientData);
 
   Object.keys(patientData.history).forEach((patientName) => {
+    if (patientData.history[patientName].hasConsent) {
+      return;
+    }
     if (patientData.history[patientName].gender === 'male') {
       patientData.history[patientName].name = 'John Doe';
     } else {
@@ -157,6 +160,15 @@ function mergePatients(_patient, allPatientData) {
         current.family.children = [];
       }
 
+      if (item.deathAge && item.deathAge !== current.deathAge) {
+        if (!current.deathAge) {
+          current.deathAge = item.deathAge;
+        } else {
+          current.minDeathAge = Math.min(current.minDeathAge || current.deathAge, item.deathAge);
+          current.maxDeathAge = Math.max(current.maxDeathAge || current.deathAge, item.deathAge);
+        }
+      }
+
       if (item.diseases && item.diseases.length) {
         if (!current.diseases) {
           current.diseases = [];
@@ -169,8 +181,8 @@ function mergePatients(_patient, allPatientData) {
             if (existing.onsetAge !== disease.onsetAge) {
               existing.minOnsetAge = Math.min(existing.minOnsetAge || existing.onsetAge, disease.onsetAge);
               existing.maxOnsetAge = Math.max(existing.maxOnsetAge || existing.onsetAge, disease.onsetAge);
-              existing.confidenceScore += 1;
             }
+            existing.confidenceScore += 1;
           }
         });
       }
@@ -281,6 +293,14 @@ class Patient {
   static async get(_patientName, requester) {
     const patientName = _patientName.toLowerCase();
     const patient = allPatientData[patientName];
+    const allowedNames = [
+      'charles',
+      'george',
+      'gerald',
+      'sam',
+      'sarah',
+      'sherry',
+    ];
 
     if (!patient) {
       log.debug({ patientName }, 'Not found');
@@ -298,7 +318,21 @@ class Patient {
     const hasConsent = await doctor.hasConsent(patientName);
     log.debug({ patientName, requester, hasConsent }, 'Result of consent');
     if (hasConsent === '1') {
-      log.info({ patientName, requester }, 'Doctor has consent; returning patient');
+      log.info({ patientName, requester }, 'Doctor has primary consent; returning patient');
+
+      const mergedPatients = mergePatients(patient, allPatientData);
+      const allConsents = await Promise.all(Object.keys(mergedPatients.history)
+        .filter((historyPatientName) => allowedNames.includes(historyPatientName.toLowerCase()))
+        .map((historyPatientName) => {
+          return doctor.hasConsent(historyPatientName.toLowerCase())
+            .then((result) => {
+              return { hasConsent: result === '1', name: historyPatientName };
+            });
+          }));
+      allConsents.forEach((consent) => {
+        patient.history[consent.name].hasConsent = consent.hasConsent;
+      });
+
       return anonymize(mergePatients(patient, allPatientData));
     }
 

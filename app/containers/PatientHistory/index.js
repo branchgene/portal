@@ -218,7 +218,11 @@ class PatientHistory extends React.Component { // eslint-disable-line react/pref
     const historyData = patientHistory.patientData;
     let historyTitle = `Family History: ${historyData.name}`;
     if (historyData.deathAge) {
-      historyTitle = `${historyTitle} (deceased - age ${historyData.deathAge})`;
+      if (historyData.minDeathAge) {
+        historyTitle = `${historyTitle} (deceased - age ${historyData.minDeathAge} - ${historyData.maxDeathAge})`;
+      } else {
+        historyTitle = `${historyTitle} (deceased - age ${historyData.deathAge})`;
+      }
     }
 
     let doctors;
@@ -248,7 +252,11 @@ class PatientHistory extends React.Component { // eslint-disable-line react/pref
 
       let deceased = '';
       if (selectedNodeData.deathAge) {
-        deceased = ` - Deceased (${selectedNodeData.deathAge})`;
+        if (selectedNodeData.minDeathAge) {
+          deceased = ` - Deceased (${selectedNodeData.minDeathAge} - ${selectedNodeData.maxDeathAge})`;
+        } else {
+          deceased = ` - Deceased (${selectedNodeData.deathAge})`;
+        }
       }
       nodeInfo = (
         <div style={{ width: "100%" }}>
@@ -308,7 +316,7 @@ class PatientHistory extends React.Component { // eslint-disable-line react/pref
           {nodeInfo}
           <hr />
           <div>
-            <h3>My History</h3>
+            <h3>{isDoctor ? `${historyData.name}'s History` : 'My History'}</h3>
             <div style={{ width: "100%" }}>
               <Graph graph={graph} options={graphOptions} events={graphEvents} style={{ width: "768px", height: "512px" }} />
             </div>
