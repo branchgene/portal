@@ -51,7 +51,7 @@
     return async (dispatch) => {
       try {
         console.log({ patientName, doctorId });
-        const { data } = await http().put(`/api/v1/patients/${patientName}/doctors`, { name: doctorId });
+        const { data } = await http().put(`/api/v1/patients/${patientName}/enableDoctor`, { name: doctorId });
         dispatch(enableDoctorSuccess(patientName, doctorId, data));
       } catch (ex) {
         dispatch(enableDoctorError(ex));
@@ -78,7 +78,7 @@
   export function disableDoctor(patientName, doctorId) {
     return async (dispatch) => {
       try {
-        await http().delete(`/api/v1/patients/${patientName}/doctors`, { name: doctorId });
+        await http().put(`/api/v1/patients/${patientName}/disableDoctor`, { name: doctorId });
         dispatch(disableDoctorSuccess(patientName, doctorId));
       } catch (ex) {
         dispatch(disableDoctorError(ex));

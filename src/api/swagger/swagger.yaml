@@ -33,7 +33,7 @@ paths:
           $ref: '#/responses/Forbidden'
         default:
           $ref: '#/responses/GeneralError'
-  '/patients/{patientName}/doctors':
+  '/patients/{patientName}/enableDoctor':
     x-swagger-router-controller: patients
     put:
       description: Enable a Doctor
@@ -52,7 +52,9 @@ paths:
           $ref: '#/responses/Forbidden'
         default:
           $ref: '#/responses/GeneralError'
-    delete:
+  '/patients/{patientName}/disableDoctor':
+    x-swagger-router-controller: patients
+    put:
       description: Disable a Doctor
       operationId: disableDoctor
       parameters:
