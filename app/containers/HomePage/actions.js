@@ -1,5 +1,5 @@
 /*
- * Home Actions
+ * App Actions
  *
  * Actions change things in your application
  * Since this boilerplate uses a uni-directional data flow, specifically redux,
@@ -15,18 +15,44 @@
  *    }
  */
 
-import { CHANGE_USERNAME } from './constants';
+import { push } from 'react-router-redux';
 
-/**
- * Changes the input field of the form
- *
- * @param  {name} name The new text of the input field
- *
- * @return {object}    An action object with a type of CHANGE_USERNAME
- */
-export function changeUsername(name) {
+import http from '../../lib/http';
+
+import {
+  GET_PATIENT_HISTORY,
+  GET_PATIENT_HISTORY_SUCCESS,
+  GET_PATIENT_HISTORY_ERROR,
+} from './constants';
+
+
+
+export function getPatientHistorySuccess(patientName, requester, patientData) {
   return {
-    type: CHANGE_USERNAME,
-    name
+    type: GET_PATIENT_HISTORY_SUCCESS,
+    payload: {
+      requester,
+      patientData,
+    },
   };
+}
+
+export function getPatientHistoryError(error) {
+  return {
+    type: GET_PATIENT_HISTORY_ERROR,
+    payload: { error },
+  };
+}
+
+export function getPatientHistory(patientName, requester) {
+  return async (dispatch) => {
+    try {
+      const { data } = await http().get(`/api/v1/patients/${patientName}/history?requester=${requester}`);
+      dispatch(getPatientHistorySuccess(patientName, requester, data));
+      dispatch(push('/patientHistory'));
+      console.log('shoot');
+    } catch (ex) {
+      dispatch(getPatientHistoryError(ex));
+    }
+  }  
 }

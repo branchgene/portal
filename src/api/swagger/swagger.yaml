@@ -10,15 +10,11 @@ schemes:
   - https
 consumes:
   - application/json
+  - application/x-www-form-urlencoded
 produces:
   - application/json
-#securityDefinitions:
-#  basicAuth:
-#    type: basic
-#security:
-#  - basicAuth: []
 paths:
-  '/patient/{name}/history':
+  '/patients/{patientName}/history':
     x-swagger-router-controller: patients
     get:
       description: Retrieve a patient history
@@ -30,7 +26,43 @@ paths:
         '200':
           description: Successful request
           schema:
-            $ref: '#/definitions/OrganizationList'
+            $ref: '#/definitions/Patient'
+        '401':
+          $ref: '#/responses/Unauthorized'
+        '403':
+          $ref: '#/responses/Forbidden'
+        default:
+          $ref: '#/responses/GeneralError'
+  '/patients/{patientName}/doctors':
+    x-swagger-router-controller: patients
+    put:
+      description: Enable a Doctor
+      operationId: enableDoctor
+      parameters:
+        - $ref: '#/parameters/pathPatientName'
+        - $ref: '#/parameters/bodyDoctor'
+      responses:
+        '201':
+          description: Successful request
+          schema:
+            $ref: '#/definitions/Patient'
+        '401':
+          $ref: '#/responses/Unauthorized'
+        '403':
+          $ref: '#/responses/Forbidden'
+        default:
+          $ref: '#/responses/GeneralError'
+    delete:
+      description: Disable a Doctor
+      operationId: disableDoctor
+      parameters:
+        - $ref: '#/parameters/pathPatientName'
+        - $ref: '#/parameters/bodyDoctor'
+      responses:
+        '201':
+          description: Successful request
+          schema:
+            $ref: '#/definitions/Patient'
         '401':
           $ref: '#/responses/Unauthorized'
         '403':
@@ -40,11 +72,19 @@ paths:
   /swagger:
     x-swagger-pipe: swagger_raw
 parameters:
+  bodyDoctor:
+    name: doctor
+    in: body
+    description: The doctor to be manipulated
+    schema:
+      $ref: '#/definitions/Doctor'
+    required: true
   pathPatientName:
-    name: patentName
+    name: patientName
     in: path
     description: The name of the patient
     type: string
+    required: true
   queryRequester:
     name: queryRequester
     in: query
@@ -64,93 +104,45 @@ responses:
     schema:
       $ref: '#/definitions/ErrorResponse'
 definitions:
-  Organization:
-    required: [id, name]
-    properties:
-      name:
-        description: Human friendly name of the organization
-        type: string
-      active:
-        description: Whether or not the Organization is active
-        type: boolean
-      id:
-        description: Unique identifier for the organization
-        type: string
-      createdAt:
-        description: When the Organization was created
-        type: string
-        format: date-time
-      updatedAt:
-        description: When the Organization was last updated
-        type: string
-        format: date-time
-  OrganizationList:
-    properties:
-      items:
-        type: array
-        items:
-          $ref: '#/definitions/Organization'
-      pagination:
-          $ref: '#/definitions/Pagination'
-  Pagination:
-    properties:
-      pageSize:
-        description: Size of the page
-        type: integer
-      pageCount:
-        description: How many pages are in the set
-        type: integer
-      page:
-        description: Which page in the response set this set corresponds to
-        type: integer
-  User:
-    required: [id, name]
-    properties:
-      id:
-        description: Unique ID of the User
-        type: string
-      name:
-        description: Name of the User
-        type: string
-      # TODO: Facebook / Google / etc. are going to link us with some form
-      # of auth type. Ideally, we'd support multiple auth metchansisms
-      # that allow us to match against a single User.
-      # That means storing this in another table, looking it up, then
-      # retrieving our User based on the matches.
-      #
-      # We need to look at what Facebook / Google auth present back to us
-      # so that we know what all we need to store in order ot match it
-      # up against this user
-      active:
-        description: Whether or not the User is active in the system
-        type: boolean
-      createdAt:
-        description: When the User was created
-        type: string
-        format: date-time
-      updatedAt:
-        description: When the User was last updated
-        type: string
-        format: date-time
-  UserCreate:
+  Doctor:
     required: [name]
     properties:
       name:
-        description: Name of the User
         type: string
-  UserList:
+  Disease:
+    required: [name]
     properties:
-      items:
+      name:
+        type: string
+      ageAtContracted:
+        type: integer
+  Patient:
+    required: [id]
+    properties:
+      id:
+        type: string
+      gender:
+        type: string
+      alive:
+        type: boolean
+      ageAtDeath:
+        type: integer
+      disesases:
         type: array
         items:
-          $ref: '#/definitions/User'
-      pagination:
-          $ref: '#/definitions/Pagination'
-#  UserOrgRoles:
-#    properties:
-#      organizationId: The organization ID this role is for
-#      userId: The user ID this role is for
-#      role: The role itself??
+          $ref: '#/definitions/Disease'
+      doctors:
+        type: array
+        items:
+          $ref: '#/definitions/Doctor'
+      father:
+        $ref: '#/definitions/Patient'
+      mother:
+        $ref: '#/definitions/Patient'
+      children:
+        type: array
+        items:
+          $ref: '#/definitions/Patient'
   ErrorResponse:
     required:
       - message

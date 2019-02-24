@@ -1,39 +1,88 @@
+import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Helmet } from 'react-helmet';
 import { compose } from 'redux';
-import { createStructuredSelector } from 'reselect';
-import injectReducer from 'utils/injectReducer';
-import injectSaga from 'utils/injectSaga';
-import {
-  makeSelectRepos,
-  makeSelectLoading,
-  makeSelectError
-} from 'containers/App/selectors';
-import { loadRepos } from '../App/actions';
-import { changeUsername } from './actions';
-import { makeSelectUsername } from './selectors';
-import reducer from './reducer';
-import saga from './saga';
-import HomePage from './HomePage';
+import DetailedHistory from 'components/DetailedHistory'
+import { getPatientHistory } from './actions';
 
-const mapDispatchToProps = (dispatch) => ({
-  onChangeUsername: (evt) => dispatch(changeUsername(evt.target.value)),
-  onSubmitForm: (evt) => {
-    if (evt !== undefined && evt.preventDefault) evt.preventDefault();
-    dispatch(loadRepos());
+import './style.scss';
+
+class HomePage extends React.Component { // eslint-disable-line react/prefer-stateless-function
+
+  constructor(props) {
+    super(props);
+
+    this.loginDoctor = this.loginDoctor.bind(this);
+    this.loginPatient = this.loginPatient.bind(this);
   }
-});
 
-const mapStateToProps = createStructuredSelector({
-  repos: makeSelectRepos(),
-  username: makeSelectUsername(),
-  loading: makeSelectLoading(),
-  error: makeSelectError()
-});
+  loginDoctor() {
+    const { dispatch } = this.props;
+    const patientName = this.state.patientName;
+    const doctorId = this.state.doctorId;
 
-const withConnect = connect(mapStateToProps, mapDispatchToProps);
+    dispatch(getPatientHistory(patientName, doctorId));
+  }
 
-const withReducer = injectReducer({ key: 'home', reducer });
-const withSaga = injectSaga({ key: 'home', saga });
+  loginPatient() {
+    const { dispatch } = this.props;
+    const patientName = this.state.patientName;
 
-export default compose(withReducer, withSaga, withConnect)(HomePage);
-export { mapDispatchToProps };
+    dispatch(getPatientHistory(patientName, patientName));
+  }
+
+  onPropChange(propName) {
+    return (event) => {
+      const state = { ...this.state };
+      const newValue = event.target.value;
+      state[propName] = newValue;
+
+      this.setState(state);
+    }
+  }
+
+  /**
+   * when initial state username is not null, submit the form to load repos
+   */
+  componentDidMount() {
+  }
+
+  render() {
+    return (
+      <article>
+        <Helmet>
+          <title>#HashGene</title>
+          <meta name="description" content="@HashGene" />
+        </Helmet>
+        <div className="home-page">
+          <div>
+            <label>Patient Name:</label>
+            <input onChange={this.onPropChange('patientName')} type="text" name="patientName"/>
+          </div>
+          <div>
+            <label>Doctor ID:</label>
+            <input onChange={this.onPropChange('doctorId')} type="text" name="doctorId"/>
+          </div>
+          <div>
+            <button onClick={this.loginPatient}>I am a Patient</button>
+            <button onClick={this.loginDoctor}>I am a Doctor</button>
+          </div>
+        </div>
+      </article>
+    );
+  }
+}
+
+HomePage.propTypes = {
+  home: PropTypes.object,
+};
+
+function mapStateToProps(state, ownProps) {
+  return {
+    ...state
+  };
+}
+
+export default connect(mapStateToProps)(HomePage);
+

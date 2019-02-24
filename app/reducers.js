@@ -2,11 +2,11 @@
  * Combine all reducers in this file and export the combined reducers.
  */
 
-import { fromJS } from 'immutable';
-import { combineReducers } from 'redux-immutable';
+import { combineReducers } from 'redux';
 import { LOCATION_CHANGE } from 'react-router-redux';
 
 import globalReducer from 'containers/App/reducer';
+import homePageReducer from 'containers/HomePage/reducer';
 
 /*
  * routeReducer
@@ -17,20 +17,25 @@ import globalReducer from 'containers/App/reducer';
  */
 
 // Initial routing state
-const routeInitialState = fromJS({
+const routeInitialState = {
   location: null,
-});
+};
 
 /**
  * Merge route into the global application state
  */
 function routeReducer(state = routeInitialState, action) {
+  if (!action) {
+    return state;
+  }
+
   switch (action.type) {
     /* istanbul ignore next */
     case LOCATION_CHANGE:
-      return state.merge({
+      return {
         location: action.payload,
-      });
+        ...state,
+      };
     default:
       return state;
   }
@@ -43,6 +48,6 @@ export default function createReducer(injectedReducers) {
   return combineReducers({
     route: routeReducer,
     global: globalReducer,
-    ...injectedReducers,
+    home: homePageReducer,
   });
 }

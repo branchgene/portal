@@ -11,8 +11,7 @@ import { Helmet } from 'react-helmet';
 import { Switch, Route } from 'react-router-dom';
 
 import HomePage from 'containers/HomePage/Loadable';
-import PatientHistory from 'containers/PatientHistory/Loadable';
-import FeaturePage from 'containers/FeaturePage/Loadable';
+import PatientHistory from 'containers/PatientHistory';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import Header from 'components/Header';
 import Footer from 'components/Footer';

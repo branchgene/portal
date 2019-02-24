@@ -1,5 +1,5 @@
 /*
- * HomeReducer
+ * AppReducer
  *
  * The reducer takes care of our data. Using actions, we can change our
  * application state.
@@ -9,23 +9,41 @@
  * case YOUR_ACTION_CONSTANT:
  *   return state.set('yourStateVariable', true);
  */
-import { fromJS } from 'immutable';
 
-import { CHANGE_USERNAME } from './constants';
+import {
+  GET_PATIENT_HISTORY_SUCCESS,
+  GET_PATIENT_HISTORY_ERROR, 
+  GET_PATIENT_HISTORY, 
+} from './constants';
 
-// The initial state of the App
-const initialState = fromJS({
-  username: ''
-});
+const initialState = {
+  error: false,
+  loading: false,
+  patientName: '',
+  doctorId: ''
+};
 
-function homeReducer(state = initialState, action) {
+function reducer(state = initialState, action) {
   switch (action.type) {
-    case CHANGE_USERNAME:
-      // Delete prefixed '@' from the github username
-      return state.set('username', action.name.replace(/@/gi, ''));
+    case GET_PATIENT_HISTORY_ERROR:
+      return {
+        error: true,
+        loading: false,
+        ...state,
+      };
+    case GET_PATIENT_HISTORY_SUCCESS:
+      return {
+        error: false,
+        loading: false,
+        historyData: { 
+          ...action.payload
+        },
+       };
+    case GET_PATIENT_HISTORY:
+      return { loading: true, error: false, ...state };
     default:
       return state;
   }
 }
 
-export default homeReducer;
+export default reducer;
