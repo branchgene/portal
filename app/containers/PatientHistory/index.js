@@ -21,7 +21,7 @@ function transformData(patientData) {
   const { history } = patientData;
 
   const nodes = [{
-    id: `id-${patientData.name}`,
+    id: `${patientData.id}`,
     label: `${patientData.name}${patientData.deathAge ? ' (D)' : ''}`,
     color: getColor(patientData),
   }];
@@ -31,16 +31,16 @@ function transformData(patientData) {
   if (patientData.family) {
     if (patientData.family.father) {
       edges.push({
-        from: `id-${patientData.name}`,
-        to: `id-${patientData.family.father}`,
+        from: `${patientData.id}`,
+        to: `${patientData.family.father}`,
         label: 'father',
         smooth: true,
       });
     }
     if (patientData.family.mother) {
       edges.push({
-        from: `id-${patientData.name}`,
-        to: `id-${patientData.family.mother}`,
+        from: `${patientData.id}`,
+        to: `${patientData.family.mother}`,
         label: 'mother',
         smooth: true,
       });
@@ -48,8 +48,8 @@ function transformData(patientData) {
     if (patientData.family.children) {
       patientData.family.children.forEach((child) => {
         edges.push({
-          from: `id-${patientData.name}`,
-          to: `id-${child}`,
+          from: `${patientData.id}`,
+          to: `${child}`,
           label: 'child',
           smooth: true,
         });
@@ -58,8 +58,8 @@ function transformData(patientData) {
     if (patientData.family.siblings) {
       patientData.family.siblings.forEach((sibling) => {
         edges.push({
-          from: `id-${patientData.name}`,
-          to: `id-${sibling}`,
+          from: `${patientData.id}`,
+          to: `${sibling}`,
           label: 'sibling',
           smooth: true,
         });
@@ -72,7 +72,7 @@ function transformData(patientData) {
       const person = history[personKey];
 
       nodes.push({
-        id: `id-${person.name}`,
+        id: `${person.id}`,
         label: `${person.name}${person.deathAge ? ' (D)' : ''}`,
         color: getColor(person),
       });
@@ -80,16 +80,16 @@ function transformData(patientData) {
       if (person.family) {
         if (person.family.father) {
           edges.push({
-            from: `id-${person.name}`,
-            to: `id-${person.family.father}`,
+            from: `${person.id}`,
+            to: `${person.family.father}`,
             label: 'father',
             smooth: true,
           });
         }
         if (person.family.mother) {
           edges.push({
-            from: `id-${person.name}`,
-            to: `id-${person.family.mother}`,
+            from: `${person.id}`,
+            to: `${person.family.mother}`,
             label: 'mother',
             smooth: true,
           });
@@ -97,8 +97,8 @@ function transformData(patientData) {
         if (person.family.children) {
           person.family.children.forEach((child) => {
             edges.push({
-              from: `id-${person.name}`,
-              to: `id-${child}`,
+              from: `${person.id}`,
+              to: `${child}`,
               label: 'child',
               smooth: true,
             });
@@ -107,8 +107,8 @@ function transformData(patientData) {
         if (person.family.siblings) {
           person.family.siblings.forEach((sibling) => {
             edges.push({
-              from: `id-${person.name}`,
-              to: `id-${sibling}`,
+              from: `${person.id}`,
+              to: `${sibling}`,
               label: 'sibling',
               smooth: true,
             });
@@ -165,7 +165,7 @@ class PatientHistory extends React.Component { // eslint-disable-line react/pref
       };
 
       if (nodes.length === 1) {
-        state.selectedNode = nodes[0].substring(3);
+        state.selectedNode = nodes[0];
         this.setState(state);
       } else {
         state.selectedNode = null;

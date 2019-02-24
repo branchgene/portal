@@ -1,8 +1,31 @@
 
 const Doctor = require('./Doctor');
-const patientData = require('./patientData');
+const allPatientData = require('./patientData');
 const log = require('../../lib/log');
 
+function addIds(patientData) {
+  patientData.id = patientData.name;
+
+  if (patientData.history) {
+    Object.keys(patientData.history).forEach((patientName) => {
+      patientData.history[patientName].id = patientName;
+    });
+  }
+
+  return patientData;
+}
+
+function anonymize(patientData) {
+  Object.keys(patientData.history).forEach((patientName) => {
+    if (patientData.history[patientName].gender === 'male') {
+      patientData.history[patientName].name = 'John Doe';
+    } else {
+      patientData.history[patientName].name = 'Jane Doe';
+    }
+  });
+
+  return patientData;
+}
 
 class Patient {
   constructor() {
@@ -11,7 +34,7 @@ class Patient {
 
   static async get(_patientName, requester) {
     const patientName = _patientName.toLowerCase();
-    const patient = patientData[patientName];
+    const patient = addIds(allPatientData[patientName]);
 
     if (!patient) {
       log.debug({ patientName }, 'Not found');
@@ -30,7 +53,7 @@ class Patient {
     log.debug({ patientName, requester, hasConsent }, 'Result of consent');
     if (hasConsent === '1') {
       log.info({ patientName, requester }, 'Doctor has consent; returning patient');
-      return patient;
+      return anonymize(patient);
     }
 
     // Otherwise only return their name
